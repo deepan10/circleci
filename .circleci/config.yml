@@ -1,0 +1,18 @@
+
+version: 2
+jobs:
+  tox_py2:
+    docker:
+      - image: circleci/python:3.6.1
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: test
+          command: |
+            echo "tox_py2"
+
+workflows:
+  build_deploy:
+    jobs:
+      - tox_py2
