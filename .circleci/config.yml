@@ -23,6 +23,11 @@ jobs:
     requires:
       - tox_py2
       - tox_py3
+    filters:
+            tags:
+              only: /[0-9]+(\.[0-9]+)*/
+            branches:
+              ignore: /.*/
     docker:
       - image: circleci/python:3.6.1
     steps:
