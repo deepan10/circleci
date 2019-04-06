@@ -28,9 +28,9 @@ jobs:
     steps:
       - checkout
       - run:
-        name: deploy
-        command: |
-          echo "deploy"
+          name: deploy
+          command: |
+            echo "deploy"
 
 workflows:
   version: 2
