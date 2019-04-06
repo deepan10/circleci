@@ -1,4 +1,4 @@
-
+# test
 version: 2.1
 
 workflows:
@@ -6,7 +6,10 @@ workflows:
     jobs:
       - tox_test:
           version: "3.6.1"
-          tox_version: py36
+          tox_version: "py36"
+      - tox_test:
+          version: "3.7"
+          tox_version: "py37"
       - deploy:
           filters:
             tags:
