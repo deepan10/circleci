@@ -26,8 +26,6 @@ jobs:
     filters:
       tags:
         only: /^v.*/
-      branches:
-        ignore: /.*/
     docker:
       - image: circleci/python:3.6.1
     steps:
