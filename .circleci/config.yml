@@ -1,28 +1,37 @@
 
-version: 2
+version: 2.1
+
+workflows:
+  build_deploy:
+    jobs:
+      - tox_test:
+          version: "3.6.1"
+          tox_version: py36
+      - deploy:
+          filters:
+            tags:
+              only: /v.*/
+
 jobs:
-  tox_py2:
+  tox_test:
+    parameters:
+      version:
+        type: string
+        default: latest
+      tox_version:
+        type: string
+        default: py37
     docker:
-      - image: circleci/python:3.6.1
+      - image: circleci/python:<< parameters.version >>
     steps:
       - checkout
       - run:
           name: test
           command: |
-            echo "tox_py2"
-  tox_py3:
-    docker:
-      - image: circleci/python:3.6.1
-    steps:
-      - checkout
-      - run:
-          name: test
-          command: |
-            echo "tox_py3"
+            echo "<< parameters.tox_version >>"
   deploy:
     requires:
-      - tox_py2
-      - tox_py3
+      - tox_test
     filters:
       tags:
         only: /^v.*/
@@ -34,11 +43,3 @@ jobs:
           name: deploy
           command: |
             echo "deploy"
-
-workflows:
-  version: 2
-  build_deploy:
-    jobs:
-      - tox_py2
-      - tox_py3
-      - deploy
