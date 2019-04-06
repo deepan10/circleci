@@ -19,6 +19,18 @@ jobs:
           name: test
           command: |
             echo "tox_py3"
+  deploy:
+    requires:
+      - tox_py2
+      - tox_py3
+    docker:
+      - image: circleci/python:3.6.1
+    steps:
+      - checkout
+      - run:
+        name: deploy
+        command: |
+          echo "deploy"
 
 workflows:
   version: 2
@@ -26,3 +38,4 @@ workflows:
     jobs:
       - tox_py2
       - tox_py3
+      - deploy
